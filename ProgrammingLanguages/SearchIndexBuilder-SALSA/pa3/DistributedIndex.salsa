@@ -1,0 +1,228 @@
+module pa3;
+
+import java.io.*;
+import java.util.*;
+/* 
+ *  DistributedIndex.salsa --
+ *  Given a directory, workers, and documents, calculate the tfidf for all documents in multiple theaters
+ *  Process
+ *  1. Create M amount of workers and distribute documents amongst them as evenly as possible
+ *  2. Create and connect to whatever theatres were specified in the theatre document
+ *  2. Distribute the actors evenly across theaters
+ *  2. Run distribute1 which produces the tf for all the items within all the documents to be read
+ *  3. Merge the actors results and then calculate the idf for all the the words
+ *  4. Run distribute2 which produces the tfidf for all words in each document
+ *  5. Merge the actor results into a hashtable of hashtables containing all the tfidfs
+ *  6. Convert our hashmap of all the words into an alphabetically sorted vector
+ *  7. Create 26 actors(one for each letter) and print the results to their respective documents(a.txt, b.txt, etc)
+ */
+behavior DistributedIndex {
+
+    String collectionDir = "collection/";
+    String outputDir = "index/";
+    String nameServer;
+    String theatersFile;
+    String theater;
+    int filesToBeIndexed = 10;
+    int noActors = 2;
+    int documentsPerActor = 0;
+    long initialTime;
+
+    void act(String args[]) {
+        initialTime = System.currentTimeMillis();
+        standardOutput<-println("Starting the computation");
+        int argc = args.length;
+        if (args.length == 6) {
+            collectionDir = args[0];
+            outputDir = args[1];
+            filesToBeIndexed = Integer.parseInt(args[2]);
+            noActors = Integer.parseInt(args[3]);
+            nameServer = args[4];
+            theatersFile = args[5];
+            documentsPerActor = filesToBeIndexed / noActors;
+            if (noActors > filesToBeIndexed) {
+                noActors = filesToBeIndexed;
+                documentsPerActor = 1;
+            }
+            makeOutputDir();
+            actHelper();
+        } else {
+            exitFailure();
+        }
+    }
+
+    void actHelper() {
+        Vector theaters = new Vector();
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(theatersFile));
+            while ((theater = in .readLine()) != null) {
+                theaters.add(theater);
+            } in .close();
+        } catch (IOException ioe) {
+            standardOutput<-println("[error] Can't open the file " + theatersFile + " for reading.");
+        }
+        IndexWorker[] workers = new IndexWorker[noActors];
+        for (int i = 0; i < noActors; i++) {
+            workers[i] = new IndexWorker();
+        }
+        distribute1(workers, theaters)@distribute2(token, workers, theaters)@writeResults(token)@endTimer();
+    }
+
+    void writeResults(Hashtable terms) {
+        standardOutput<-println("Writting Results");
+        WriterWorker[] workers = new WriterWorker[26];
+        for (int i = 0; i < 26; i++) {
+            workers[i] = new WriterWorker();
+        }
+
+        Vector words = ((Vector) terms.get("allwords"));
+        terms.remove("allwords");
+        for (int i = 0; i < 26; i++) {
+            String letter = String.valueOf((char)(i + 97));
+            workers[i]<-writeTFIDF(letter, outputDir, terms, words);
+        }
+    }
+
+    void makeOutputDir() {
+        File theDir = new File(outputDir);
+        if (!theDir.exists()) {
+            try {
+                theDir.mkdir();
+            } catch (SecurityException se) {
+                standardOutput<-println("[error] Unable to create output folder");
+            }
+        }
+    }
+
+    void endTimer() {
+        long finalTime = System.currentTimeMillis();
+        long runningTime = finalTime - initialTime;
+        standardOutput<-println("Running time to build the Index: " + runningTime + " ms.");
+    }
+
+    double idf(int documents, int occurrences) {
+        return Math.log10((((double) documents) + 2) / (1 + ((double) occurrences)));
+    }
+
+    Vector hashToSortedVector(Hashtable words) {
+        Vector vec = new Vector(words.keySet());
+        Collections.sort(vec);
+        return vec;
+    }
+
+    Hashtable distribute1(IndexWorker[] workers, Vector theaters) {
+        standardOutput<-println("Phase 1");
+        for (int i = 0; i < noActors; i++) {
+            standardOutput<-println("Sending actor " + "uan://" + nameServer + ":3030/a" + i + " to " + "rmsp://" + theaters.get(i % theaters.size()) + "/a" + i);
+            workers[i] = new IndexWorker() at(new UAN("uan://" + nameServer + ":3030/a" + i), new UAL("rmsp://" + theaters.get(i % theaters.size()) + "/a" + i));
+        }
+        int startnumber = 0;
+        int endnumber = startnumber + documentsPerActor;
+        join {
+            for (int i = 0; i < noActors - 1; i++) {
+                workers[i]<-readFromAssignedFiles(startnumber, endnumber, collectionDir);
+                startnumber = endnumber;
+                endnumber = startnumber + documentsPerActor;
+            }
+            workers[noActors - 1]<-readFromAssignedFiles(startnumber, filesToBeIndexed - 1, collectionDir);
+        }@combine1(token)@currentContinuation;
+    }
+
+    Hashtable distribute2(Hashtable terms, IndexWorker[] workers, Vector theaters) {
+        standardOutput<-println("Phase 2");
+        Hashtable words = ((Hashtable) terms.get("allwords"));
+        Hashtable workerTerms = new Hashtable();
+        terms.remove("allwords");
+        Object[] array = terms.keySet().toArray();
+        int startnumber = 0;
+        int endnumber = startnumber + documentsPerActor;
+        for (int i = 0; i < noActors; i++) {
+            standardOutput<-println("Sending actor " + "uan://" + nameServer + ":3030/a" + i + " to " + "rmsp://" + theaters.get(i % theaters.size()) + "/a" + i);
+            workers[i] = new IndexWorker() at(new UAN("uan://" + nameServer + ":3030/a" + i), new UAL("rmsp://" + theaters.get(i % theaters.size()) + "/a" + i));
+        }
+        join {
+            for (int i = 0; i < noActors - 1; i++) {
+                workerTerms.clear();
+                for (int j = startnumber; j < endnumber; j++) {
+                    String s = String.valueOf(j) + ".txt";
+                    workerTerms.put(s, terms.get(s));
+                }
+                workers[i]<-calculateTFIDF(workerTerms, words);
+                startnumber = endnumber;
+                endnumber = startnumber + documentsPerActor;
+            }
+            workerTerms.clear();
+            for (int i = startnumber; i < filesToBeIndexed; i++) {
+                String s = String.valueOf(i) + ".txt";
+                workerTerms.put(s, terms.get(s));
+            }
+            workers[noActors - 1]<-calculateTFIDF(workerTerms, words);
+        }@combine2(token, words)@currentContinuation;
+    }
+
+    Hashtable calculateIDF(Object t2) {
+        Hashtable terms = ((Hashtable) t2);
+        Hashtable words = ((Hashtable) terms.get("allwords"));
+        terms.remove("allwords");
+        Object[] array = words.keySet().toArray();
+        int amountOfDocs = terms.size();
+        for (int j = 0; j < array.length; j++) {
+            int occurences = 0;
+            for (int i = 0; i < amountOfDocs; i++) {
+                String s = String.valueOf(i) + ".txt";
+                Hashtable t = ((Hashtable) terms.get(s));
+                if (t.containsKey(array[j])) {
+                    occurences++;
+                }
+            }
+            words.put(array[j], idf(amountOfDocs, occurences));
+        }
+        terms.put("allwords", words);
+        return terms;
+    }
+
+    Hashtable combine2(Object[] results, Hashtable words) {
+        Hashtable terms = new Hashtable();
+        Vector words1 = hashToSortedVector(words);
+        for (int i = 0; i < results.length; i++) {
+            Hashtable t = ((Hashtable) results[i]);
+            Object[] array = t.keySet().toArray();
+            for (int j = 0; j < array.length; j++) {
+                terms.put(array[j], t.get(array[j]));
+            }
+        }
+        terms.put("allwords", words1);
+        return terms;
+    }
+
+    Hashtable combine1(Object[] results) {
+        Hashtable all = new Hashtable();
+        Hashtable terms = new Hashtable();
+        for (int i = 0; i < results.length; i++) {
+            Hashtable t = ((Hashtable) results[i]);
+            Object[] array = t.keySet().toArray();
+            Hashtable t2 = merge(all, ((Hashtable) t.get("allwords")));
+            all.clear();
+            all = t2;
+            for (int j = 0; j < array.length; j++) {
+                if (!array[j].equals("allwords")) {
+                    terms.put(array[j], t.get(array[j]));
+                } else {
+                    terms.put(array[j], t.get(array[j]));
+                }
+            }
+        }
+        terms.put("allwords", all);
+        return calculateIDF(terms);
+    }
+
+    Hashtable merge(Hashtable table1, Hashtable table2) {
+        Object[] array = table1.keySet().toArray();
+        for (int j = 0; j < array.length; j++) {
+            if (!table2.containsKey(array[j])) {
+                table2.put(array[j], array[j]);
+            }
+        }
+        return table2;
+    }
+}

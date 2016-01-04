@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#DADADA"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/RoR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/settings"
+        android:text="@string/rad_from_route"
+        android:textColor="#2C2C2C"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#DADADA"
+        android:text="@string/settings"
+        android:textColor="#2C2C2C"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#DADADA"
+        android:onClick="clearSettings"
+        android:text="@string/clear"
+        android:textColor="#3D3D3D"
+        android:textSize="25sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Type_of_Stop"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/eat_and_drink" />
+
+    <CheckBox
+        android:id="@+id/checkbox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkbox1"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/see_and_do" />
+
+    <CheckBox
+        android:id="@+id/checkbox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkbox2"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/fuel_up" />
+
+    <CheckBox
+        android:id="@+id/checkbox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkbox3"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/rest_and_empty" />
+
+    <CheckBox
+        android:id="@+id/checkbox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkbox4"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/sleep" />
+
+    <TextView
+        android:id="@+id/range_to_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkbox5"
+        android:text="@string/range_to_search"
+        android:textColor="#2C2C2C"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkbox5"
+        android:layout_toRightOf="@+id/range_to_search"
+        android:ems="10"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio_10_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRoSClicked"
+            android:text="@string/ten_two"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/radio_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRoSClicked"
+            android:text="@string/fifty"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/radio_100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRoSClicked"
+            android:text="@string/one_hundred"
+            android:textColor="#000000" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/specific"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/radioGroup2"
+        android:text="@string/specific"
+        android:textColor="#2C2C2C"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/RoR"
+        android:layout_toRightOf="@+id/RoR"
+        android:ems="10"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRoRClicked"
+            android:text="@string/one"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/radio_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRoRClicked"
+            android:text="@string/five"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/radio_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRoRClicked"
+            android:text="@string/ten"
+            android:textColor="#000000" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/Type_of_Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/radioGroup1"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:text="@string/type_of_stop"
+        android:textColor="#2C2C2C"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/final_search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="displaySearchListView"
+        android:text="@string/final_search_text"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/search_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/specific"
+        android:layout_alignBottom="@+id/specific"
+        android:layout_toRightOf="@+id/checkbox3"
+        android:background="#DADADA"
+        android:ems="10"
+        android:hint="@string/search_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:textColor="#9A9A9A"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="Map"
+        android:text="@string/Go_To_Map"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+</RelativeLayout>

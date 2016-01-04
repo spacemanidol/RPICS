@@ -1,0 +1,192 @@
++5:How do I get to new york city
++7:What time is the next shuttle to stack
++6:Find me an image of a cat
++5:Who owns the marshall islands
++3:What is the weather like in Frankfurt
++7:When is the next shuttle at the union
++6:Find me a photo of the world cup
++5:Take me home
++7:what time is the next shuttle
+
++1:What is the integral of 1/x
++1:What is the derivative of log x
++1:What is 1 plus 1
++1:how many liters and in a gallon
++1:how many inches are in a mile
++1:how do I convert from feet to inches
++1:how many pounds per kilo
++1:what is the capital of spain
++1:what is the capital of washington
++1:how many states are there
++1:how many letters are there
++1:what is the square root of a cube
++1:how many integers are there
++1:who is the tallest person on earth
++1:what is the meaning of life
++1:who was the first president
++1:who was the sixteenth president
++1:which party controls the senate
++1:what party controls the house
++1:kilograms
++1:what is 10 pounds in kilograms
++1:how many people are there
++1:how many people live in the united states
++1:what is the highest building on earth
++1:how many countries are there
++1:who is the oldest person on earth
++1:where is brazil
++1:what is 10 divided by 2.6
++1:what is 1234 times 4321
++1:calculate the inverse square of 123
+
++2:Play Song U guessed it
++2:Play Rick Ross
++2:Play bonfire by knife party
++2:play elmo's world
++2:play some dubstep
++2:play me a song
++2:play my music
++2:play the song I like
++2:put on my music
++2:gimme some sick jams
++2:it's too quiet in here
++2:play some music
++2:play that one song
++2:play some heavy metal
++2:i want to hear bonfire
++2:i want to hear baby by justin beiber
++2:give me some classical music
++2:can you play music please
++2:could you play knife party for me
++2:can you play the song power glove
++2:please play skrillex's song bangarang
++2:please play knife party's album
++2:play some music
++2:sing a song
++2:play some christmas music
++2:play jingle bells
++2:play madonna's classic
++2:play that song from that movie
++2:play some like it hot
++2:play sum41
+
++3:how hot is it
++3:what's the temperature
++3:how cold is it outside
++3:is it cold outside
++3:do I want to go outside
++3:is it comfortable outside
++3:should I bring a jacket
++3:should i wear a coat
++3:is it cold enough to wear a jacket
++3:is it cold enough to bundle up
++3:should i bundle up
++3:what's the weather
++3:what should i wear outside
++3:what type of clothing will work today
++3:give me the weather
++3:tell me the temperature
++3:tell me what to wear
++3:tell me how cold it is
++3:is it cloudy
++3:is it rainy
++3:will it snow
++3:will it rain
++3:is it snowing
++3:can you tell me the weather please
++3:can you tell me what to wear
++3:what should I wear to go outside today
++3:I'm worried about the weather
++3:am I dressed warmly enough
++3:is it too cold outside
++3:it is too hot for a jacket
++3:do I want to wear a jacket today
+
++4:Which country has won the most world cups
++4:When was RPI founded
++4:
+
++2:lets listen to all of the lights
++3:whats it like outside
++4:who is bill gates
++4:what is valve corporation
++1:whats the square root of 4
++1:what does weather mean
++3:whats the weather in montreal right now
++3:is it cold out
++1:who is the president of the united states
++6:show me what the mac pro looks like
++6:can you get me pictures of cookies
++7:when is the east shuttle going to be at the union
++1:how many calories are in a donut
++1:what is 32 times 2
++2:can you play everlong
++5:show me restaurants near rpi
++5:are there any malls near here
++3:is it going to be sunny tomorrow
++1:can you tell me who the ceo of exxonmobil is
++7:where will the east shuttle be next
++1:what is the volume of a soda can
++1:what planes are above me right now
++3:is it warm in seattle today
++3:will it snow tomorrow
++3:will it rain on thursday
++3:is it raining
++3:should i wear a jacket this weekend
++3:should i wear a raincoat
++2:play some music for me
++7:when will the shuttle be here
++1:when is tim cook's birthday
++1:what is the current phase of the moon
++1:can you tell me the current phase of the moon
++1:where was shirley ann jackson born
++3:is it nice out today
++5:wheres the nearest pizza place
++1:graph x squared plus 2
++2:listen to drake
++4:who killed franz ferdinand
++3:is it a good day to go to the beach
++1:whats the population of the united states
++1:whos the 44th president of the us	
++1:what day was it 3 weeks ago
++1:what time will it be in 42 minutes
++6:look up pictures of brownies
++5:is there a park near here
++5:wheres the nearest park
++5:are there any places to eat here
++5:what restaraunts are near me
++2:i want to listen to runaway
++2:play heartbeat
++7:when will the shuttle be at west hall
++7:whens the shuttle getting here
++7:is the shuttle coming soon
++1:what does weather mean
++1:what does university mean
++1:define internet
++1:can you tell me what audio means
++1:can you tell me what audio is
++1:whats the average human life span
++6:get photos of rpi
++5:get me directions to the closest library
++3:is it cloudy right now
++3:whats tomorrows forecast
++3:how humid is it
++3:how warm is it
++3:will it be frigid tonight
++5:where is mexico
++5:where is the capital of japan
++4:what is samsung
++4:what is sony
++4:who is jon stewart
++1:what is one plus one
++4:what is the oneplus one
++1:convert 3 feet to inches
++1:whats 12 gallons in quarts
++1:how big is the united states
++1:how populous is japan
++1:whats the gdp of china
++1:how old is north korea
++7:are the shuttles still running
++4:what is snapple
++1:how old is donald glover
++5:is there a coffee shop around here

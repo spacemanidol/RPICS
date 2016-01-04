@@ -1,0 +1,57 @@
+A sample test set that I used to see if it was working and my score. Really pretty decent
+
+Winnable games 
+
+X,X,X,P,X
+X,X,X,P,G
+W,X,P,X,X
+X,X,X,X,X
+X,X,X,X,X
+Best Score:1481
+
+X,X,W,P
+X,G,P,X
+X,X,X,X
+X,X,X,P
+
+Best Score:993
+
+X,X,X,P
+W,G,P,X
+X,X,X,X
+X,X,X,P
+
+Best Score:995
+
+X,X,X,P,X
+W,P,P,P,G
+X,X,X,X,X
+X,X,X,X,X
+X,X,X,X,X
+
+Best Score:989
+
+X,X,X,P,X
+W,X,X,P,G
+X,X,X,X,X
+X,X,P,X,X
+X,X,X,X,P
+
+SCORE:987
+
+X,X,X,P,X
+W,X,X,P,G
+X,X,P,X,X
+X,X,X,X,X
+X,X,X,X,P
+
+SCORE:976
+Loosing Games
+
+X,X,W,P,X
+X,X,P,P,G
+X,X,X,X,X    
+X,X,X,P,X
+X,X,X,X,X
+
+Usually eaten by wumpus or falls into the pit

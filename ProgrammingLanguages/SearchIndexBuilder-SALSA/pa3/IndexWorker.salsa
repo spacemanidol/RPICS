@@ -1,0 +1,77 @@
+module pa3;
+
+import java.io.*;
+import java.util.*;
+/* 
+ *  IndexWorker.salsa --
+ *  Worker for Concurrent Term frequency calculator
+ */
+behavior IndexWorker {
+
+    /*  Input:Two numbers, a start and and end document number, directory where documents are located
+     *  Output: A hashtable of hashtables including all the words present in all the documents and the tf for all the terms in each document
+     *  E.G.: allwords{all,...,zed},0.txt{...},1.txt{...}
+     *  Process
+     *  1. Open each file and read in words 1 at a time
+     *  2. Add the word to 
+     *  returns a vector of hashmaps, one for each document and one hashmap that contains all the words in sub documents
+    */
+    Hashtable readFromAssignedFiles(int startDocument, int endDocument, String path) {
+        Vector filenames = new Vector();
+        for (int i = startDocument; i <= endDocument; i++) {
+            filenames.add(String.valueOf(i) + ".txt");
+        }
+        String line;
+        Hashtable terms = new Hashtable();
+        Hashtable allwords = new Hashtable();
+        for (int i = 0; i < filenames.size(); i++) {
+            int totalWords = 0;
+            Hashtable terms2doc = new Hashtable();
+            try {
+                BufferedReader in = new BufferedReader(new FileReader(path + String.valueOf(filenames.get(i))));
+                while ((line = in .readLine()) != null) {
+                    String[] words = line.split("\\s+");
+                    for (int j = 0; j < words.length; j++) {
+                        totalWords++;
+                        if (!allwords.containsKey(words[j])) {
+                            allwords.put(words[j], words[j]);
+                        }
+                        if (terms2doc.containsKey(words[j])) {
+                            terms2doc.put(words[j], ((Integer) terms2doc.get(words[j])) + 1);
+                        } else {
+                            terms2doc.put(words[j], 1);
+                        }
+                    }
+                } in .close();
+            } catch (IOException ioe) {
+                standardOutput<-println("[error] Can't open the file " + filenames.get(i) + " for reading.");
+            }
+            terms.put(String.valueOf(filenames.get(i)), terms2doc);
+            terms.put("allwords", allwords);
+        }
+        return terms;
+    }
+
+    /*  Input:Our Hashtable of hashtables of documents to word tf a hashtable of all the words with each word's idf
+     *  Output: A hashtable of hashtables with tfidf calculated
+     *  Process: For each word we calculate its tfidf as per the formula and save it.
+     *  returns a vector of hashmaps, one for each document and one hashmap that contains all the words in sub documents
+    */
+    Hashtable calculateTFIDF(Hashtable terms, Hashtable words) {
+        Object[] array = terms.keySet().toArray();
+        Hashtable newterms = new Hashtable();
+        for (int j = 0; j < array.length; j++) {
+            Hashtable thisTerm = ((Hashtable) terms.get(array[j]));
+            Object[] array2 = thisTerm.keySet().toArray();
+            Hashtable temp = new Hashtable();
+            for (int i = 0; i < array2.length; i++) {
+                int amount = ((Integer) thisTerm.get(array2[i]));
+                Double tf = 1 + Math.log10(amount);
+                Double idf = ((Double) words.get(array2[i]));
+                temp.put(array2[i], tf * idf);
+            }
+            newterms.put(array[j], temp);
+        }
+        return newterms;
+    }
+}

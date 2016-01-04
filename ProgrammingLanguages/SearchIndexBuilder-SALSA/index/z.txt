@@ -1,0 +1,21 @@
+zach 0 0.7782
+zack 0 1.0124
+zagreb 5 1.1494
+zahir 4 0.6021 9 0.6021
+zapatero 5 0.7782
+zawraa 5 0.7782
+zdrojewski 5 0.7782
+zealand 6 0.7782
+zee 3 0.6021 5 0.6021
+zelazowa 5 0.7782
+zero 4 0.6021 9 0.7833
+zhovtis 9 0.7782
+zidane 0 0.7782
+zimbabwe 1 0.7782
+zinedine 0 0.7782
+zone 0 0.9645 5 0.6021
+zones 2 0.3802 3 0.4947 4 0.3802 5 0.5616
+zoo 5 1.1494
+zuma 6 0.7782
+zuwayr 1 0.7782
+

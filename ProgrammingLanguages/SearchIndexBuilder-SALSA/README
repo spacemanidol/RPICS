@@ -1,0 +1,6 @@
+Name:Zoe Konrad
+RCS:konraz
+Name:Daniel Campos
+RCS:campod2
+
+Our assignment works to the specifications given in the assignment. We have implemented the first part of the extra credit to analyze preformance across different workers. As we only has smaller computers and ran all the test casses in distributing on the same computer, it was much faster to have the non distributed solution. That being said, we made scripts that test speed across different workers and theater amounts and another one that runs both the Distributed index and normal index and tests it against the sample output provided. It has no bugs that we know of.
